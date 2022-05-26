@@ -1,0 +1,52 @@
+## The data is originally from the article Hotel Booking Demand Datasets
+
+
+hotel_bookings <- read.csv("hotel_bookings.csv")
+
+library(ggplot2)
+
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel)
+## Add a title to my chart
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  labs(title="Comparison of market segments by hotel type for hotel bookings")
+
+## Earliest and latest years of column date
+min(hotel_bookings$arrival_date_year)
+max(hotel_bookings$arrival_date_year)
+
+## Adding variables to use later on in the process
+mindate <- min(hotel_bookings$arrival_date_year)
+maxdate <- max(hotel_bookings$arrival_date_year)
+
+## Utilizing variables to paste into my subtitle
+## It is much easier to just write "2017 to 2019", but I decided to show off my
+## skills
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  labs(title="Comparison of market segments by hotel type for hotel bookings",
+       subtitle=paste0("Data from: ", mindate, " to ", maxdate))
+
+## Switching my subtitle to my caption
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  labs(title="Comparison of market segments by hotel type for hotel bookings",
+       caption=paste0("Data from: ", mindate, " to ", maxdate))
+
+## Naming my X and Y Axis using the labels function
+ggplot(data = hotel_bookings) +
+  geom_bar(mapping = aes(x = market_segment)) +
+  facet_wrap(~hotel) +
+  labs(title="Comparison of market segments by hotel type for hotel bookings",
+       caption=paste0("Data from: ", mindate, " to ", maxdate),
+       x="Market Segment",
+       y="Number of Bookings")
+
+
+ggsave('hotel_booking_chart.png')
+
